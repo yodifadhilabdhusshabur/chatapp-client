@@ -1,0 +1,524 @@
+@import "../../../assets/variables";
+
+.content {
+  .user-box {
+    position: relative;
+    background-color: $listBgColor;
+    padding: 1rem;
+    margin-top: 1.5rem;
+    border-radius: 7px;
+    box-shadow: $shadow;
+    min-height: 75vh;
+
+    .box-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1rem;
+
+      .friend-text {
+        color: #fff;
+        font-weight: bolder;
+        margin: 0px;
+      }
+
+      .search-friend {
+        position: relative;
+
+        .friend-form-control {
+          border: none;
+          padding: 0.4rem 2rem 0.4rem 1rem;
+          border-radius: 15px;
+          background-color: $navBgColor;
+          color: $semiGray;
+          outline: none;
+          transition: 0.2s;
+        }
+
+        .search-icon {
+          position: absolute;
+          top: 25%;
+          right: 5%;
+          color: $semiGray;
+        }
+      }
+    }
+
+    .friend-details {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      padding: 0.7rem;
+      border: 1px solid rgba($semiGray, 0.1);
+      border-radius: 7px;
+      transition: 0.1s;
+
+      .friend-left {
+        display: flex;
+        align-items: center;
+
+        .friend-img {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 70px;
+          height: 70px;
+          box-shadow: $shadow;
+          border-radius: 7px;
+          margin-right: 0.5rem;
+        }
+
+        .friend-caption {
+          .caption-text {
+            color: rgba(#fff, 0.8);
+          }
+
+          .matual-friends {
+            display: block;
+            color: $semiGray;
+          }
+        }
+      }
+
+      .friend-right {
+        .visit-profile {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 30px;
+          height: 30px;
+          border-radius: 50%;
+          background-color: rgba($semiGray, 0.1);
+          margin-bottom: 0.5rem;
+          transition: 0.1s;
+
+          .visit {
+            color: $semiGray;
+          }
+
+          &:hover {
+            cursor: pointer;
+            background-color: rgba($semiGray, 0.3);
+          }
+        }
+
+        .un-friend {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 30px;
+          height: 30px;
+          border-radius: 50%;
+          background-color: rgba($mainColor, 0.7);
+          transition: 0.1s;
+          border: none;
+          outline: none;
+
+          .remove-icon {
+            color: rgba(#fff, 0.8);
+          }
+
+          &:hover {
+            cursor: pointer;
+            background-color: rgba($semiGray, 0.3);
+          }
+        }
+
+        .sent-request {
+          span {
+            background-color: rgba($semiGray, 0.3);
+            transition: 0.1s;
+            padding: 0.3rem;
+            color: $semiGray;
+            border-radius: 7px;
+          }
+        }
+      }
+
+      &:hover {
+        background-color: rgba(black, 0.1);
+      }
+    }
+
+    // prelaoder
+    .preloader {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 100%;
+      background-color: rgba($bgColor, 0.2);
+      z-index: 900;
+
+      .loading-part {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+
+        .sk-folding-cube {
+          margin: 20px auto;
+          width: 40px;
+          height: 40px;
+          position: relative;
+          -webkit-transform: rotateZ(45deg);
+          transform: rotateZ(45deg);
+
+          .sk-cube {
+            float: left;
+            width: 50%;
+            height: 50%;
+            position: relative;
+            -webkit-transform: scale(1.1);
+            -ms-transform: scale(1.1);
+            transform: scale(1.1);
+
+            &:before {
+              content: '';
+              position: absolute;
+              top: 0;
+              left: 0;
+              width: 100%;
+              height: 100%;
+              background-color: #5199FF;
+              -webkit-animation: sk-foldCubeAngle 2.4s infinite linear both;
+              animation: sk-foldCubeAngle 2.4s infinite linear both;
+              -webkit-transform-origin: 100% 100%;
+              -ms-transform-origin: 100% 100%;
+              transform-origin: 100% 100%;
+            }
+          }
+
+          .sk-cube2 {
+            -webkit-transform: scale(1.1) rotateZ(90deg);
+            transform: scale(1.1) rotateZ(90deg);
+          }
+
+          .sk-cube3 {
+            -webkit-transform: scale(1.1) rotateZ(180deg);
+            transform: scale(1.1) rotateZ(180deg);
+          }
+
+          .sk-cube4 {
+            -webkit-transform: scale(1.1) rotateZ(270deg);
+            transform: scale(1.1) rotateZ(270deg);
+          }
+
+          .sk-cube2:before {
+            -webkit-animation-delay: 0.3s;
+            animation-delay: 0.3s;
+          }
+
+          .sk-cube3:before {
+            -webkit-animation-delay: 0.6s;
+            animation-delay: 0.6s;
+          }
+
+          .sk-cube4:before {
+            -webkit-animation-delay: 0.9s;
+            animation-delay: 0.9s;
+          }
+        }
+
+        @-webkit-keyframes sk-foldCubeAngle {
+          0%, 10% {
+            -webkit-transform: perspective(140px) rotateX(-180deg);
+            transform: perspective(140px) rotateX(-180deg);
+            opacity: 0;
+          }
+
+          25%, 75% {
+            -webkit-transform: perspective(140px) rotateX(0deg);
+            transform: perspective(140px) rotateX(0deg);
+            opacity: 1;
+          }
+
+          90%, 100% {
+            -webkit-transform: perspective(140px) rotateY(180deg);
+            transform: perspective(140px) rotateY(180deg);
+            opacity: 0;
+          }
+        }
+
+        @keyframes sk-foldCubeAngle {
+          0%, 10% {
+            -webkit-transform: perspective(140px) rotateX(-180deg);
+            transform: perspective(140px) rotateX(-180deg);
+            opacity: 0;
+          }
+
+          25%, 75% {
+            -webkit-transform: perspective(140px) rotateX(0deg);
+            transform: perspective(140px) rotateX(0deg);
+            opacity: 1;
+          }
+
+          90%, 100% {
+            -webkit-transform: perspective(140px) rotateY(180deg);
+            transform: perspective(140px) rotateY(180deg);
+            opacity: 0;
+          }
+        }
+      }
+    }
+  }
+}
+
+
+@media only screen and (max-width: 500px) {
+  .content {
+    .user-box {
+      .box-header {
+        .friend-text {
+          font-size: 17px !important;
+        }
+      }
+
+      .friend-details {
+        //justify-content: center;
+        .friend-left {
+          .friend-img {
+            width: 60px;
+            height: 60px;
+          }
+
+          .friend-caption {
+            .caption-text {
+              font-size: 14px !important;
+            }
+
+            .matual-friends {
+              font-size: 13px !important;
+            }
+          }
+        }
+
+        .friend-right {
+          display: flex;
+          align-items: center;
+
+          .visit-profile {
+            margin: 0.5rem;
+          }
+        }
+      }
+
+    }
+  }
+
+  #mutualPeople {
+    .friend-details {
+      //justify-content: center;
+      .friend-left {
+        .friend-img {
+          width: 60px;
+          height: 60px;
+        }
+
+        .friend-caption {
+          .caption-text {
+            font-size: 14px !important;
+          }
+
+          .matual-friends {
+            font-size: 13px !important;
+          }
+        }
+      }
+
+      .friend-right {
+        display: flex;
+        align-items: center;
+
+        .visit-profile {
+          margin: 0.5rem;
+        }
+      }
+    }
+  }
+
+
+  .friend-col {
+    padding: 0;
+  }
+}
+
+
+@media only screen and (max-width: 365px) {
+  .content {
+    .user-box {
+      .friend-details {
+        justify-content: center;
+
+        .friend-left {
+          .friend-img {
+
+          }
+
+          .friend-caption {
+            .caption-text {
+
+            }
+
+            .matual-friends {
+
+            }
+          }
+        }
+
+        .friend-right {
+
+          .visit-profile {
+          }
+        }
+      }
+    }
+  }
+  .friend-col {
+    padding: 0;
+  }
+  #mutualPeople {
+    .friend-details {
+      justify-content: center !important;
+
+      .friend-left {
+        .friend-img {
+
+        }
+
+        .friend-caption {
+          .caption-text {
+
+          }
+
+          .matual-friends {
+
+          }
+        }
+      }
+
+      .friend-right {
+
+        .visit-profile {
+        }
+      }
+    }
+  }
+}
+
+// modal for mutual friends
+
+#mutualPeople {
+
+
+    .modal-header {
+      background-color: $listBgColor !important;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.7rem;
+
+      .modal-title {
+        font-size: 17px;
+        font-weight: bold;
+      }
+    }
+
+    .modal-body {
+      padding: 1rem;
+      background-color: $listBgColor !important;
+      .friend-details {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        padding: 0.7rem;
+        border: 1px solid rgba($semiGray, 0.1);
+        border-radius: 7px;
+        transition: 0.1s;
+
+        .friend-left {
+          display: flex;
+          align-items: center;
+
+          .friend-img {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 70px;
+            height: 70px;
+            box-shadow: $shadow;
+            border-radius: 7px;
+            margin-right: 0.5rem;
+          }
+
+          .friend-caption {
+            .caption-text {
+              color: rgba(#fff, 0.8);
+            }
+
+            .matual-friends {
+              display: block;
+              color: $semiGray;
+            }
+          }
+        }
+
+        .friend-right {
+          .visit-profile {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background-color: rgba($semiGray, 0.1);
+            margin-bottom: 0.5rem;
+            transition: 0.1s;
+
+            .visit {
+              color: $semiGray;
+            }
+
+            &:hover {
+              cursor: pointer;
+              background-color: rgba($semiGray, 0.3);
+            }
+          }
+
+          .un-friend {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background-color: rgba($mainColor, 0.7);
+            transition: 0.1s;
+
+            .remove-icon {
+              color: rgba(#fff, 0.8);
+            }
+
+            &:hover {
+              cursor: pointer;
+              background-color: rgba($semiGray, 0.3);
+            }
+          }
+        }
+
+        &:hover {
+          background-color: rgba(black, 0.1);
+        }
+      }
+    }
+
+    .uk-modal-footer {
+      background-color: $listBgColor !important;
+    }
+
+}
+
+
+

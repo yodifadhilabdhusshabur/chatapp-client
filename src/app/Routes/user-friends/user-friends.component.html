@@ -1,0 +1,99 @@
+<section class="content" @scaleIn>
+    <div class="user-box">
+        <div class="box-header">
+            <h4 class="friend-text">Friends</h4>
+            <form class="search-friend">
+                <input type="search" [(ngModel)]="searchedText" (keyup)="searchInFriends()" class="friend-form-control" placeholder="Search a friend" name="searchFriend">
+                <i class="fa fa-search search-icon" aria-hidden="true"></i>
+            </form>
+        </div>
+        <div *ngIf="emptyAlert">
+            <div class="alert alert-warning">
+                <i class="fa fa-exclamation-triangle mx-2" aria-hidden="true"></i>
+                <span>You dont have any friends <a [routerLink]="['/people']">Find Some</a></span>
+            </div>
+        </div>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12 col-lg-6 friend-col mb-2" *ngFor="let friend of toggleArraies === false ? friendsContainer : filteredFriends;trackBy: socket.trackByFn" @scaleUp>
+                    <div class="friend-details">
+                        <div class="friend-left">
+                            <img *ngIf="!friend?.img?.url" class="friend-img" src="assets/user.png" alt="friend-image" [routerLink]="['/profile',friend._id]">
+                            <img *ngIf="friend?.img?.url" class="friend-img" [src]="friend?.img?.url" alt="friend-image">
+                            <div class="friend-caption">
+                                <div class="caption-text"><span>{{friend.firstName | titlecase}} {{friend.lastName | titlecase}}</span> <span *ngIf="friend.online" class="user-acitve"></span></div>
+                                <a class="matual-friends" data-toggle="modal" data-target="#mutualFriends" (click)="passMutualData(friend?.matualFriends)"><span>{{friend?.matualFriends?.length === 0? 'No' : friend?.matualFriends?.length}} mutual {{friend?.matualFriends?.length === 1 ? 'friend' : 'friends'}}</span></a>
+                        </div>
+                        </div>
+                        <div class="friend-right">
+                            <a class="visit-profile text-decoration-none" [routerLink]="['/profile',friend._id]">
+                                <i class="fas fa-eye visit"></i>
+                            </a>
+                            <div class="un-friend" (click)="deleteFriend(friend._id, friend.firstName, friend.lastName)">
+                                <i class="fas fa-user-times remove-icon"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--Preloader part-->
+        <div class="preloader">
+            <div class="loading-part">
+                <div class="sk-folding-cube">
+                    <div class="sk-cube1 sk-cube"></div>
+                    <div class="sk-cube2 sk-cube"></div>
+                    <div class="sk-cube4 sk-cube"></div>
+                    <div class="sk-cube3 sk-cube"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- matual friends modal -->
+<div class="modal fade" id="mutualFriends" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-light font-weight-bold" id="exampleModalLabel">Mutual Friends</h5>
+                <button type="button" class="close text-light" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-12" *ngIf="mutualFriends.length === 0">
+                            <div class="alert alert-warning">
+                                <i class="fa fa-exclamation-circle mx-2" aria-hidden="true"></i>
+                                <span>No mutual friends for this user</span>
+                            </div>
+                        </div>
+                        <div class="col-12 friend-col mb-2" *ngFor="let mutual of mutualFriends">
+                            <div class="friend-details">
+                                <div class="friend-left">
+                                    <img *ngIf="!mutual?.img?.url" class="friend-img" src="assets/user.png" alt="friend-image">
+                                    <img *ngIf="mutual?.img?.url" class="friend-img" [src]="mutual?.img?.url" alt="friend-image">
+                                    <div class="friend-caption">
+                                        <div class="caption-text"><span>{{mutual?.firstName | titlecase}} {{mutual?.lastName | titlecase}}</span></div>
+                                        <a class="matual-friends"><span>{{mutual?.friends?.length}} {{mutual?.friends?.length === 1 ? 'Friend' : 'Friends'}}</span></a>
+                                    </div>
+                                </div>
+                                <div class="friend-right">
+                                    <a class="visit-profile text-decoration-none" [routerLink]="['/profile', mutual._id]" (click)="closeModal()">
+                                        <i class="fas fa-eye visit"></i>
+                                    </a>
+                                    <!--                                <div class="un-friend">-->
+                                    <!--                                    <i class="fas fa-user-plus remove-icon"></i>-->
+                                    <!--                                </div>-->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

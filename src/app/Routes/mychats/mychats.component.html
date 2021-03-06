@@ -1,0 +1,41 @@
+<section class="content" @scaleIn>
+    <div class="chat-list">
+        <div class="chat-search">
+            <form class="search-form">
+                <input [(ngModel)]="searchText" (keyup)="filterChats()" name="searchInChats" type="text" class="chatsapp-form-control" placeholder="Search or start new chat">
+                <i class="fa fa-search search-icon" aria-hidden="true"></i>
+            </form>
+        </div>
+        <div class="col-12 my-3" *ngIf="socket.emptyChatsAlert">
+            <div class="alert alert-warning">
+                <span><i class="fa fa-exclamation-circle mx-2" aria-hidden="true"></i><span>No chats at the moment</span></span>
+            </div>
+        </div>
+        <div class="chat-contacts">
+            <a class="friends text-decoration-none" *ngFor="let list of toggleArray ? filteredArray : socket.allChatListContainer.userChats;trackBy:socket.trackByFn;let i = index" [routerLink]="['/mychats', list._id]" @scaleUp>
+            <div class="friends-imgs">
+                <img *ngIf="socket.allChatListContainer.userId === list.firstUser._id"  class="img" [src]="list.secondUser.img ? list.secondUser.img.url : 'assets/user.png'" alt="friends-images">
+                <img *ngIf="socket.allChatListContainer.userId === list.secondUser._id"  class="img" [src]="list.firstUser.img ? list.firstUser.img.url : 'assets/user.png'" alt="friends-images">
+            </div>
+            <div class="friends-chat">
+                <div class="friend-name">
+                    <span class="f-name" *ngIf="socket.allChatListContainer.userId === list.firstUser._id">{{list.secondUser.firstName | titlecase}} {{list.secondUser.lastName | titlecase}}</span>
+                    <span class="f-name" *ngIf="socket.allChatListContainer.userId === list.secondUser._id">{{list.firstUser.firstName | titlecase}} {{list.firstUser.lastName | titlecase}}</span>
+                    <span class="f-time">{{list.lastMessageDate | date:'shortTime'}}</span>
+                </div>
+                <div class="friend-message">
+                    <div class="m-caption">
+                        <i *ngIf="socket.allChatListContainer.userId === list.lastMessage.from" [ngClass]="list.lastMessage.seen ? ['fa-check-double', 'mark-icon'] : ['fa-check','text-muted']" class="fas mr-1"></i>
+                        <span class="m-text">{{list.lastMessage.message}}</span>
+                    </div>
+                    <div class="new-message" *ngIf="socket.allChatListContainer.userId !== list.lastMessage.from">
+                        <span *ngIf="list.unreadMessages > 0" class="message-alert">{{list.unreadMessages}}</span>
+                    </div>
+                </div>
+            </div>
+        </a>
+        </div>
+    </div>
+</section>
+
+
